@@ -1,5 +1,8 @@
 # FPS info
 allow platform_app sysfs_graphics:file r_file_perms;
+allow platform_app sysfs_kgsl:file r_file_perms;
+allow platform_app sysfs_battery_supply:dir search;
+allow platform_app sysfs_battery_supply:file r_file_perms;
 
 # Face Unlock
 get_prop(platform_app, camera_prop)
