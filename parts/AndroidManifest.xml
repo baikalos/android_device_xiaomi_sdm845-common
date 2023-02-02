@@ -55,10 +55,10 @@
         <activity
             android:name=".thermal.ThermalActivity"
             android:label="@string/thermal_title">
-            <intent-filter>
+            <!-- intent-filter>
                 <action android:name="com.android.settings.action.IA_SETTINGS" />
-            </intent-filter>
-            <meta-data
+            </intent-filter -->
+            <!-- meta-data
                 android:name="com.android.settings.category"
                 android:value="com.android.settings.category.ia.battery" />
             <meta-data
@@ -66,7 +66,7 @@
                 android:resource="@string/thermal_summary" />
             <meta-data
                 android:name="com.android.settings.order"
-                android:value="1" />
+                android:value="1" / -->
         </activity>
 
         <service
