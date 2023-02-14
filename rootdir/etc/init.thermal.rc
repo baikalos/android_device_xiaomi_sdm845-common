@@ -1,6 +1,5 @@
 # Balance (default profile)
 on property:baikal.power.thermal=1
-    #write /sys/class/power_supply/battery/charge_control_limit  ${sys.baikal.bpcharging:-129}
     setprop sys.qcom.thermalcfg "/vendor/etc/thermal-engine-sdm845.conf"
     stop vendor.thermal-engine
     start vendor.thermal-engine
@@ -10,7 +9,6 @@ on property:baikal.power.thermal=1
 
 # High
 on property:baikal.power.thermal=5
-    #write /sys/class/power_supply/battery/charge_control_limit  ${sys.baikal.bpcharging:-129}
     setprop sys.qcom.thermalcfg "/vendor/etc/thermal-engine-sdm845-high.conf"
     stop vendor.thermal-engine
     start vendor.thermal-engine
@@ -21,7 +19,6 @@ on property:baikal.power.thermal=5
 
 # NoLimits
 on property:baikal.power.thermal=4
-    #write /sys/class/power_supply/battery/charge_control_limit  ${sys.baikal.bpcharging:-129}
     setprop sys.qcom.thermalcfg "/vendor/etc/thermal-engine-sdm845-nolimits.conf"
     stop vendor.thermal-engine
     start vendor.thermal-engine
@@ -31,7 +28,6 @@ on property:baikal.power.thermal=4
 
 # Cool
 on property:baikal.power.thermal=6
-    #write /sys/class/power_supply/battery/charge_control_limit  ${sys.baikal.bpcharging:-129}
     setprop sys.qcom.thermalcfg "/vendor/etc/thermal-engine-sdm845-cool.conf"
     stop vendor.thermal-engine
     start vendor.thermal-engine
@@ -41,7 +37,6 @@ on property:baikal.power.thermal=6
 
 # Cold
 on property:baikal.power.thermal=7
-    #write /sys/class/power_supply/battery/charge_control_limit  ${sys.baikal.bpcharging:-129}
     setprop sys.qcom.thermalcfg "/vendor/etc/thermal-engine-sdm845-cold.conf"
     stop vendor.thermal-engine
     start vendor.thermal-engine
@@ -51,7 +46,6 @@ on property:baikal.power.thermal=7
 
 # Phone
 on property:baikal.power.thermal=9
-    #write /sys/class/power_supply/battery/charge_control_limit  ${sys.baikal.bpcharging:-129}
     setprop sys.qcom.thermalcfg "/vendor/etc/thermal-engine-sdm845-cool.conf"
     stop vendor.thermal-engine
     start vendor.thermal-engine
@@ -61,7 +55,6 @@ on property:baikal.power.thermal=9
 
 # Gaming
 on property:baikal.power.thermal=2
-    #write /sys/class/power_supply/battery/charge_control_limit  ${sys.baikal.bpcharging:-129}
     setprop sys.qcom.thermalcfg "/vendor/etc/thermal-engine-sdm845-tgame.conf"
     stop vendor.thermal-engine
     start vendor.thermal-engine
@@ -71,7 +64,6 @@ on property:baikal.power.thermal=2
 
 # Gaming 2
 on property:baikal.power.thermal=3
-    #write /sys/class/power_supply/battery/charge_control_limit  ${sys.baikal.bpcharging:-129}
     setprop sys.qcom.thermalcfg "/vendor/etc/thermal-engine-sdm845-tgame2.conf"
     stop vendor.thermal-engine
     start vendor.thermal-engine
@@ -81,7 +73,6 @@ on property:baikal.power.thermal=3
 
 # Camera
 on property:baikal.power.thermal=8
-    #write /sys/class/power_supply/battery/charge_control_limit  ${sys.baikal.bpcharging:-129}
     setprop sys.qcom.thermalcfg "/vendor/etc/thermal-engine-sdm845-camera.conf"
     stop vendor.thermal-engine
     start vendor.thermal-engine
@@ -91,7 +82,6 @@ on property:baikal.power.thermal=8
 
 # VR
 on property:baikal.power.thermal=10
-    #write /sys/class/power_supply/battery/charge_control_limit  ${sys.baikal.bpcharging:-129}
     setprop sys.qcom.thermalcfg "/vendor/etc/thermal-engine-sdm845-arvr.conf"
     stop vendor.thermal-engine
     start vendor.thermal-engine
@@ -106,13 +96,13 @@ on property:baikal.power.perf=0
     setprop "baikal.eng.perf.cur_profile" "none"
 
 on property:baikal.power.perf=7
-    setprop "baikal.eng.perf.cur_profile" "interactive"
+    setprop "baikal.eng.perf.cur_profile" "balance"
 
 on property:baikal.power.perf=1
     setprop "baikal.eng.perf.cur_profile" "low"
 
 on property:baikal.power.perf=2
-    setprop "baikal.eng.perf.cur_profile" "sustained"
+    setprop "baikal.eng.perf.cur_profile" "sustain"
 
 on property:baikal.power.perf=3
     setprop "baikal.eng.perf.cur_profile" "fixed"
