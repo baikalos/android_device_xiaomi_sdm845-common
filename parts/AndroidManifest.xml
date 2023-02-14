@@ -42,7 +42,7 @@
             </intent-filter>
         </receiver>
 
-        <activity
+        <!-- activity
             android:name=".dirac.DiracActivity"
             android:label="@string/dirac_title">
             <intent-filter>
@@ -50,15 +50,15 @@
             </intent-filter>
             <meta-data android:name="com.android.settings.category"
                        android:value="com.android.settings.category.ia.sound" />
-        </activity>
+        </activity -->
 
-        <activity
+        <!-- activity
             android:name=".thermal.ThermalActivity"
             android:label="@string/thermal_title">
-            <!-- intent-filter>
+            <intent-filter>
                 <action android:name="com.android.settings.action.IA_SETTINGS" />
-            </intent-filter -->
-            <!-- meta-data
+            </intent-filter>
+            <meta-data
                 android:name="com.android.settings.category"
                 android:value="com.android.settings.category.ia.battery" />
             <meta-data
@@ -66,13 +66,13 @@
                 android:resource="@string/thermal_summary" />
             <meta-data
                 android:name="com.android.settings.order"
-                android:value="1" / -->
-        </activity>
+                android:value="1" />
+        </activity -->
 
-        <service
+        <!-- service
             android:name=".thermal.ThermalService"
             android:permission="ThermalService">
-        </service>
+        </service -->
 
     </application>
 </manifest>
