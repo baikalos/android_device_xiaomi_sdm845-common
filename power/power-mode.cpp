@@ -77,10 +77,7 @@ bool isDeviceSpecificModeSupported(Mode type, bool* _aidl_return) {
             LOG(INFO) << "Xiaomi/BaikalOS Power mode Ext:" << toString(type) << " isModeSupported: " << *_aidl_return;
             return true;
         default:
-            //return false;
-            *_aidl_return = true;
-            LOG(INFO) << "Xiaomi/BaikalOS Power mode Ext:" << toString(type) << " isModeSupported: " << *_aidl_return;
-            return true;
+            return false;
     }
 }
 
