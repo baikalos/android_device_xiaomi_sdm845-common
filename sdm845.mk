@@ -70,6 +70,7 @@ PRODUCT_PACKAGES += \
     android.hardware.audio.effect@6.0-impl:32 \
     android.hardware.audio.service \
     android.hardware.soundtrigger@2.2-impl:32 \
+    android.hardware.bluetooth.audio-impl \
     audio.r_submix.default \
     audio.usb.default \
     libqcompostprocbundle \
@@ -157,6 +158,10 @@ PRODUCT_PACKAGES += \
     vendor.display.config@1.0.vendor \
     vendor.display.config@2.0 \
     vendor.qti.hardware.display.allocator@1.0-service
+
+# Dolby
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/dolby/dax-default.xml:$(TARGET_COPY_OUT_VENDOR)/etc/dolby/dax-default.xml
 
 # DRM
 PRODUCT_PACKAGES += \
@@ -350,6 +355,8 @@ PRODUCT_SOONG_NAMESPACES += \
 PRODUCT_PACKAGES += \
     ims-ext-common \
     ims_ext_common.xml \
+    lib-imsvtshim:64 \
+    lib-imsvtshim \
     qti-telephony-hidl-wrapper \
     qti_telephony_hidl_wrapper.xml \
     qti-telephony-utils \
