@@ -44,8 +44,10 @@
         <library name="volume_listener" path="libvolumelistener.so"/>
         <library name="audiosphere" path="libasphere.so"/>
         <library name="shoebox" path="libshoebox.so"/>
+        <library name="jdsp" path="libjamesdsp.so"/>
     </libraries>
     <effects>
+        <effect name="jdsp" library="jdsp" uuid="f27317f4-c984-4de6-9a90-545759495bf2"/>
         <effect name="gamedap" library="gamedap" uuid="3783c334-d3a0-4d13-874f-0032e5fb80e2"/>
         <effect name="vqe" library="vqe" uuid="64a0f614-7fa4-48b8-b081-d59dc954616f"/>
         <effect name="dap" library="dap" uuid="9d4921da-8225-4f29-aefa-39537a04bcaa"/>
@@ -96,8 +98,6 @@
         <effect name="shoebox" library="shoebox" uuid="1eab784c-1a36-4b2a-b7fc-e34c44cab89e"/>
     </effects>
     <postprocess>
-        <stream type="system">
-        </stream>
         <stream type="music">
         </stream>
         <stream type="ring">
