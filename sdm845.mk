@@ -130,7 +130,8 @@ PRODUCT_PACKAGES += \
     init.qcom.usb.sh \
     init.recovery.qcom.rc \
     ueventd.qcom.rc \
-    init.thermal.rc
+    init.thermal.rc \
+    init.custom.rc
 
 # Context Hub
 PRODUCT_PACKAGES += \
