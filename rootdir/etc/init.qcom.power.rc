@@ -145,7 +145,7 @@ on enable-low-power
     write /proc/irq/default_smp_affinity "f"
 
     # Core control parameters
-    write /sys/devices/system/cpu/cpu4/core_ctl/min_cpus 2
+    write /sys/devices/system/cpu/cpu4/core_ctl/min_cpus 0
     write /sys/devices/system/cpu/cpu4/core_ctl/busy_up_thres 60
     write /sys/devices/system/cpu/cpu4/core_ctl/busy_down_thres 30
     write /sys/devices/system/cpu/cpu4/core_ctl/offline_delay_ms 100
@@ -213,7 +213,7 @@ on enable-low-power
     write /sys/class/devfreq/soc:qcom,mincpubw/polling_interval 10
 
     # Set cpuset parameters
-    write /dev/cpuset/background/cpus 0-1
+    write /dev/cpuset/background/cpus 2-3
     write /dev/cpuset/system-background/cpus 0-3
     write /dev/cpuset/foreground/boost/cpus 0-3,6-7
     write /dev/cpuset/foreground/cpus 0-3,6-7

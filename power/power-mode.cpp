@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+#define LOG_NDEBUG 0
+
 #include <aidl/android/hardware/power/BnPower.h>
 #include <android-base/file.h>
 #include <android-base/logging.h>
@@ -72,6 +74,7 @@ bool isDeviceSpecificModeSupported(Mode type, bool* _aidl_return) {
     switch (type) {
         case Mode::DOUBLE_TAP_TO_WAKE:
             *_aidl_return = true;
+            LOG(INFO) << "Xiaomi/BaikalOS Power mode Ext:" << toString(type) << " isModeSupported: " << *_aidl_return;
             return true;
         default:
             return false;
@@ -79,6 +82,9 @@ bool isDeviceSpecificModeSupported(Mode type, bool* _aidl_return) {
 }
 
 bool setDeviceSpecificMode(Mode type, bool enabled) {
+
+    LOG(INFO) << "Xiaomi/BaikalOS Power setMode Ext: " << toString(type) << " to: " << enabled;
+
     switch (type) {
         case Mode::DOUBLE_TAP_TO_WAKE: {
             int fd = open_ts_input();

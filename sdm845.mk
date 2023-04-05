@@ -11,10 +11,14 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 # Setup dalvik vm configs
 $(call inherit-product, frameworks/native/build/phone-xhdpi-6144-dalvik-heap.mk)
 
+# Dolby Atmos
+$(call inherit-product, vendor/dolby/dolby.mk)
+
 # Overlays
 DEVICE_PACKAGE_OVERLAYS += \
     $(LOCAL_PATH)/overlay \
-    $(LOCAL_PATH)/overlay-lineage
+    $(LOCAL_PATH)/overlay-lineage \
+    $(LOCAL_PATH)/overlay-baikalos
 
 PRODUCT_ENFORCE_RRO_TARGETS := *
 
@@ -69,6 +73,7 @@ PRODUCT_PACKAGES += \
     android.hardware.audio.effect@6.0-impl:32 \
     android.hardware.audio.service \
     android.hardware.soundtrigger@2.2-impl:32 \
+    android.hardware.bluetooth.audio-impl \
     audio.r_submix.default \
     audio.usb.default \
     libqcompostprocbundle \
@@ -127,7 +132,9 @@ PRODUCT_PACKAGES += \
     init.qcom.usb.rc \
     init.qcom.usb.sh \
     init.recovery.qcom.rc \
-    ueventd.qcom.rc
+    ueventd.qcom.rc \
+    init.thermal.rc \
+    init.custom.rc
 
 # Context Hub
 PRODUCT_PACKAGES += \
@@ -254,6 +261,18 @@ PRODUCT_COPY_FILES += \
     frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_telephony.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_video.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_video_le.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_video_le.xml
+
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/thermal/thermal-engine-sdm845-arvr.conf:$(TARGET_COPY_OUT_VENDOR)/etc/thermal-engine-sdm845-arvr.conf \
+    $(LOCAL_PATH)/configs/thermal/thermal-engine-sdm845-camera.conf:$(TARGET_COPY_OUT_VENDOR)/etc/thermal-engine-sdm845-camera.conf \
+    $(LOCAL_PATH)/configs/thermal/thermal-engine-sdm845-cool.conf:$(TARGET_COPY_OUT_VENDOR)/etc/thermal-engine-sdm845-cool.conf \
+    $(LOCAL_PATH)/configs/thermal/thermal-engine-sdm845-cold.conf:$(TARGET_COPY_OUT_VENDOR)/etc/thermal-engine-sdm845-cold.conf \
+    $(LOCAL_PATH)/configs/thermal/thermal-engine-sdm845-high.conf:$(TARGET_COPY_OUT_VENDOR)/etc/thermal-engine-sdm845-high.conf \
+    $(LOCAL_PATH)/configs/thermal/thermal-engine-sdm845-nolimits.conf:$(TARGET_COPY_OUT_VENDOR)/etc/thermal-engine-sdm845-nolimits.conf \
+    $(LOCAL_PATH)/configs/thermal/thermal-engine-sdm845-tgame.conf:$(TARGET_COPY_OUT_VENDOR)/etc/thermal-engine-sdm845-tgame.conf \
+    $(LOCAL_PATH)/configs/thermal/thermal-engine-sdm845-tgame2.conf:$(TARGET_COPY_OUT_VENDOR)/etc/thermal-engine-sdm845-tgame2.conf \
+    $(LOCAL_PATH)/configs/thermal/thermal-engine-sdm845.conf:$(TARGET_COPY_OUT_VENDOR)/etc/thermal-engine-sdm845.conf \
+    $(LOCAL_PATH)/configs/thermal/thermal-engine.conf:$(TARGET_COPY_OUT_VENDOR)/etc/thermal-engine.conf \
 
 # Mlipay
 PRODUCT_PACKAGES += \
