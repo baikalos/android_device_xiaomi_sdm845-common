@@ -69,19 +69,26 @@ PRODUCT_PACKAGES += \
 
 # Audio
 PRODUCT_PACKAGES += \
-    android.hardware.audio@6.0-impl:32 \
-    android.hardware.audio.effect@6.0-impl:32 \
+    android.hardware.audio@6.0-impl \
+    android.hardware.audio.effect@6.0-impl \
     android.hardware.audio.service \
-    android.hardware.soundtrigger@2.2-impl:32 \
+    android.hardware.soundtrigger@2.2-impl \
+    android.hardware.bluetooth.audio@2.1-impl \
     android.hardware.bluetooth.audio-impl \
+   
+PRODUCT_PACKAGES += \
+    audio.bluetooth.default \
     audio.r_submix.default \
-    audio.usb.default \
+    audio.usb.default
+
+PRODUCT_PACKAGES += \
     libqcompostprocbundle \
     libqcomvisualizer \
     libqcomvoiceprocessing \
     libtinycompress \
     libvolumelistener \
     tinymix
+
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/audio/audio_output_policy.conf:$(TARGET_COPY_OUT_VENDOR)/etc/audio_output_policy.conf \
@@ -103,10 +110,10 @@ PRODUCT_COPY_FILES += \
 # Bluetooth
 PRODUCT_PACKAGES += \
     android.hardware.bluetooth@1.0.vendor \
-    android.hardware.bluetooth.audio@2.1-impl:32 \
-    audio.bluetooth.default \
     vendor.qti.hardware.bluetooth_audio@2.0.vendor \
-    vendor.qti.hardware.btconfigstore@1.0.vendor
+    vendor.qti.hardware.btconfigstore@1.0.vendor \
+    vendor.qti.hardware.btconfigstore@2.0.vendor \
+
 
 # Camera
 PRODUCT_PACKAGES += \
@@ -114,6 +121,7 @@ PRODUCT_PACKAGES += \
     android.hardware.camera.provider@2.4-service \
     libdng_sdk.vendor \
     libgui_shim \
+    libgui_shim_vendor \
     libpiex_shim \
     vendor.qti.hardware.camera.device@1.0.vendor
 
