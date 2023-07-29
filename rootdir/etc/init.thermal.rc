@@ -3,9 +3,11 @@ on property:baikal.power.thermal=1
     setprop sys.qcom.thermalcfg "/vendor/etc/thermal-engine-sdm845.conf"
     stop vendor.thermal-engine
     start vendor.thermal-engine
-    write /sys/class/thermal/thermal_zone34/trip_point_0_temp 85000
-    write /sys/class/thermal/thermal_zone33/trip_point_0_temp 90000
+    write /sys/class/thermal/thermal_zone34/trip_point_0_temp 115000
+    write /sys/class/thermal/thermal_zone33/trip_point_0_temp 1150000
     setprop "baikal.eng.therm.cur_profile" "balance"
+    write /sys/class/thermal/thermal_message/sconfig 0
+
 
 # High
 on property:baikal.power.thermal=5
@@ -15,6 +17,7 @@ on property:baikal.power.thermal=5
     write /sys/class/thermal/thermal_zone34/trip_point_0_temp 95000
     write /sys/class/thermal/thermal_zone33/trip_point_0_temp 100000
     setprop "baikal.eng.therm.cur_profile" "high"
+    write /sys/class/thermal/thermal_message/sconfig 1
 
 
 # NoLimits
@@ -25,6 +28,7 @@ on property:baikal.power.thermal=4
     write /sys/class/thermal/thermal_zone34/trip_point_0_temp 100000
     write /sys/class/thermal/thermal_zone33/trip_point_0_temp 115000
     setprop "baikal.eng.therm.cur_profile" "nolimits"
+    write /sys/class/thermal/thermal_message/sconfig 2
 
 # Cool
 on property:baikal.power.thermal=6
@@ -34,6 +38,8 @@ on property:baikal.power.thermal=6
     write /sys/class/thermal/thermal_zone34/trip_point_0_temp 60000
     write /sys/class/thermal/thermal_zone33/trip_point_0_temp 65000
     setprop "baikal.eng.therm.cur_profile" "cool"
+    write /sys/class/thermal/thermal_message/sconfig 3
+
 
 # Cold
 on property:baikal.power.thermal=7
@@ -43,6 +49,7 @@ on property:baikal.power.thermal=7
     write /sys/class/thermal/thermal_zone34/trip_point_0_temp 55000
     write /sys/class/thermal/thermal_zone33/trip_point_0_temp 60000
     setprop "baikal.eng.therm.cur_profile" "cold"
+    write /sys/class/thermal/thermal_message/sconfig 4
 
 # Phone
 on property:baikal.power.thermal=9
@@ -52,6 +59,7 @@ on property:baikal.power.thermal=9
     write /sys/class/thermal/thermal_zone34/trip_point_0_temp 50000
     write /sys/class/thermal/thermal_zone33/trip_point_0_temp 55000
     setprop "baikal.eng.therm.cur_profile" "incall"
+    write /sys/class/thermal/thermal_message/sconfig 5
 
 # Gaming
 on property:baikal.power.thermal=2
@@ -61,6 +69,8 @@ on property:baikal.power.thermal=2
     write /sys/class/thermal/thermal_zone34/trip_point_0_temp 95000
     write /sys/class/thermal/thermal_zone33/trip_point_0_temp 100000
     setprop "baikal.eng.therm.cur_profile" "gaming"
+    write /sys/class/thermal/thermal_message/sconfig 6
+
 
 # Gaming 2
 on property:baikal.power.thermal=3
@@ -70,6 +80,7 @@ on property:baikal.power.thermal=3
     write /sys/class/thermal/thermal_zone34/trip_point_0_temp 100000
     write /sys/class/thermal/thermal_zone33/trip_point_0_temp 115000
     setprop "baikal.eng.therm.cur_profile" "gaming2"
+    write /sys/class/thermal/thermal_message/sconfig 7
 
 # Camera
 on property:baikal.power.thermal=8
@@ -79,6 +90,7 @@ on property:baikal.power.thermal=8
     write /sys/class/thermal/thermal_zone34/trip_point_0_temp 70000
     write /sys/class/thermal/thermal_zone33/trip_point_0_temp 75000
     setprop "baikal.eng.therm.cur_profile" "camera"
+    write /sys/class/thermal/thermal_message/sconfig 8
 
 # VR
 on property:baikal.power.thermal=10
@@ -88,25 +100,62 @@ on property:baikal.power.thermal=10
     write /sys/class/thermal/thermal_zone34/trip_point_0_temp 70000
     write /sys/class/thermal/thermal_zone33/trip_point_0_temp 75000
     setprop "baikal.eng.therm.cur_profile" "vr"
+    write /sys/class/thermal/thermal_message/sconfig 9
+
+#on property:baikal.power.perf=0
+#    setprop "baikal.eng.perf.cur_profile" "none"
+
+#on property:baikal.power.perf=7
+#    setprop "baikal.eng.perf.cur_profile" "balance"
+
+#on property:baikal.power.perf=1
+#    setprop "baikal.eng.perf.cur_profile" "low"
+
+#on property:baikal.power.perf=2
+#    setprop "baikal.eng.perf.cur_profile" "sustain"
+
+#on property:baikal.power.perf=3
+#    setprop "baikal.eng.perf.cur_profile" "fixed"
+
+#on property:baikal.power.perf=8
+#    setprop "baikal.eng.perf.cur_profile" "idle"
 
 
+#        "LAUNCH",
+#        "FIXED_PERFORMANCE",
+#        "SUSTAINED_PERFORMANCE",
+#        "INTERACTIVE",
+#        "INTERACTION",
+#        "LOW_POWER",
+#        "DEVICE_IDLE",
+#        "DISPLAY_INACTIVE",
+#        "EXPENSIVE_RENDERING",
+#        "VR",
+#        "UNKNOWN"
 
-
-on property:baikal.power.perf=0
+on property:vendor.powerhal.state=UNKNOWN
     setprop "baikal.eng.perf.cur_profile" "none"
 
-on property:baikal.power.perf=7
+on property:vendor.powerhal.state=INTERACTIVE
     setprop "baikal.eng.perf.cur_profile" "balance"
 
-on property:baikal.power.perf=1
+on property:vendor.powerhal.state=LOW_POWER
     setprop "baikal.eng.perf.cur_profile" "low"
 
-on property:baikal.power.perf=2
+on property:vendor.powerhal.state=SUSTAINED_PERFORMANCE
     setprop "baikal.eng.perf.cur_profile" "sustain"
 
-on property:baikal.power.perf=3
+on property:vendor.powerhal.state=FIXED_PERFORMANCE
     setprop "baikal.eng.perf.cur_profile" "fixed"
 
-on property:baikal.power.perf=8
+on property:vendor.powerhal.state=DEVICE_IDLE
     setprop "baikal.eng.perf.cur_profile" "idle"
 
+on property:vendor.powerhal.state=INTERACTION
+    setprop "baikal.eng.perf.cur_profile" "boost"
+
+on property:vendor.powerhal.state=LAUNCH
+    setprop "baikal.eng.perf.cur_profile" "launch"
+
+on property:vendor.powerhal.state=EXPENSIVE_RENDERING
+    setprop "baikal.eng.perf.cur_profile" "render"

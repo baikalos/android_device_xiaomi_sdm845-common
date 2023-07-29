@@ -2,7 +2,6 @@
 
 on property:persist.baikal.srv.dolby=1
     enable dms-hal-2-0
-    #setprop sys.audio.restart.hal 1
     setprop persist.baikal.lib.gamedap 0
     setprop persist.baikal.lib.vqe 0
     setprop persist.baikal.lib.dap 0
@@ -10,9 +9,10 @@ on property:persist.baikal.srv.dolby=1
     setprop persist.baikal.eff.vqe 0
     setprop persist.baikal.eff.dap 0 
 
+    setprop sys.audio.restart.hal 1
+
 on property:persist.baikal.srv.dolby=0
     stop dms-hal-2-0
-    #setprop sys.audio.restart.hal 1
     setprop persist.baikal.lib.gamedap 1
     setprop persist.baikal.lib.vqe 1
     setprop persist.baikal.lib.dap 1 
@@ -20,19 +20,21 @@ on property:persist.baikal.srv.dolby=0
     setprop persist.baikal.eff.vqe 1
     setprop persist.baikal.eff.dap 1
 
+    setprop sys.audio.restart.hal 1
+
 on property:persist.baikal.srv.jdsp=1
-    #setprop sys.audio.restart.hal 1
     setprop persist.baikal.lib.jdsp 0
     setprop persist.baikal.eff.jdsp 0
 
+    setprop sys.audio.restart.hal 1
+
 on property:persist.baikal.srv.jdsp=0
-    #setprop sys.audio.restart.hal 1
     setprop persist.baikal.lib.jdsp 1
     setprop persist.baikal.eff.jdsp 1
 
+    setprop sys.audio.restart.hal 1
 
 on property:persist.baikal.srv.afx=1
-    #setprop sys.audio.restart.hal 1
 
     setprop persist.baikal.lib.reverb 0
     setprop persist.baikal.lib.loudness_enhancer 0
@@ -50,8 +52,9 @@ on property:persist.baikal.srv.afx=1
     setprop persist.baikal.eff.audiosphere 0
     setprop persist.baikal.eff.shoebox 0
 
+    setprop sys.audio.restart.hal 1
+
 on property:persist.baikal.srv.afx=0
-    #setprop sys.audio.restart.hal 1
 
     setprop persist.baikal.lib.reverb 1
     setprop persist.baikal.lib.loudness_enhancer 1
@@ -69,12 +72,5 @@ on property:persist.baikal.srv.afx=0
     setprop persist.baikal.eff.audiosphere 1
     setprop persist.baikal.eff.shoebox 1
 
-#on property:persist.baikal.misound.enable=1
-#    setprop sys.audio.restart.hal 1
-
-#on property:persist.baikal.misound.enable=0
-#    setprop sys.audio.restart.hal 1
-
-on property:persist.baikal.audio_hq=*
-    #setprop sys.audio.restart.hal 1
+    setprop sys.audio.restart.hal 1
 

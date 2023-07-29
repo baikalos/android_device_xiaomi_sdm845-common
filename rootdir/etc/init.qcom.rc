@@ -510,21 +510,25 @@ service vendor.qrtr-ns /vendor/bin/qrtr-ns -f
     user vendor_qrtr
     group vendor_qrtr
     capabilities NET_BIND_SERVICE
+    task_profiles ProcessCapacityHigh HighPerformance
 
 service irsc_util /vendor/bin/irsc_util "/vendor/etc/sec_config"
     class core
     user root
     oneshot
+    task_profiles ProcessCapacityHigh HighPerformance
 
 service vendor.rmt_storage /vendor/bin/rmt_storage
     class core
     user root
     shutdown critical
     ioprio rt 0
+    task_profiles ProcessCapacityHigh HighPerformance
 
 service vendor.tftp_server /vendor/bin/tftp_server
-   class core
-   user root
+    class core
+    user root
+    task_profiles ProcessCapacityHigh HighPerformance
 
 service vendor.port-bridge /system/vendor/bin/port-bridge
     class main
@@ -534,24 +538,28 @@ service vendor.port-bridge /system/vendor/bin/port-bridge
 
 service vendor.netmgrd /system/vendor/bin/netmgrd
     class main
+    task_profiles ProcessCapacityHigh HighPerformance
 
 service vendor.sensors /vendor/bin/sscrpcd sensorspd
     class early_hal
     user system
     group system wakelock
     capabilities BLOCK_SUSPEND
+    task_profiles ProcessCapacityHigh HighPerformance
 
 service vendor.sensors.qti /vendor/bin/sensors.qti
     class core
     user system
     group system
     disabled
+    task_profiles ProcessCapacityHigh HighPerformance
 
 service vendor.cnss-daemon /vendor/bin/cnss-daemon -n -l
     class late_start
     user system
     group system inet net_admin wifi
     capabilities NET_ADMIN
+    task_profiles ProcessCapacityHigh HighPerformance
 
 on property:sys.shutdown.requested=*
     stop vendor.cnss-daemon
@@ -605,6 +613,7 @@ service vendor.msm_irqbalance /vendor/bin/msm_irqbalance -f /system/vendor/etc/m
     user root
     group root
     disabled
+    task_profiles ProcessCapacityHigh HighPerformance
 
 on property:vendor.display.lcd_density=*
     setprop ro.sf.lcd_density ${vendor.display.lcd_density}
@@ -613,12 +622,14 @@ service vendor.vppservice /vendor/bin/vppservice
     class main
     user media
     group camera
+    task_profiles ProcessCapacityHigh HighPerformance
 
 service time_daemon /vendor/bin/time_daemon
     class main
     user system
     group system
     capabilities SYS_TIME
+    task_profiles ProcessCapacityHigh HighPerformance
 
 on property:ro.vendor.radio.noril=*
     setprop ro.radio.noril ${ro.vendor.radio.noril}
@@ -627,6 +638,7 @@ service seemp_healthd /vendor/bin/seemp_healthd
     class late_start
     user system
     group system
+    task_profiles ProcessCapacityHigh HighPerformance
 
 service chre /vendor/bin/chre
     class late_start
@@ -634,6 +646,7 @@ service chre /vendor/bin/chre
     group system
     socket chre seqpacket 0660 root system
     shutdown critical
+    task_profiles ProcessCapacityHigh HighPerformance
 
 # Set GPU OpenGL ES version
 on property:vendor.opengles.version=*
@@ -651,7 +664,7 @@ service vendor.audio-hal /vendor/bin/hw/android.hardware.audio.service
     group audio camera drmrpc inet media mediadrm net_bt net_bt_admin net_bw_acct oem_2901 wakelock system
     capabilities BLOCK_SUSPEND SYS_NICE
     ioprio rt 4
-    writepid /dev/cpuset/foreground/tasks /dev/stune/foreground/tasks
+    task_profiles ProcessCapacityHigh HighPerformance
     socket audio_hw_socket seqpacket 0666 system system
     onrestart restart audioserver
 
@@ -662,6 +675,7 @@ service vendor.contexthub-hal-1-0 /vendor/bin/hw/android.hardware.contexthub@1.0
     user system
     group system
     disabled
+    task_profiles ProcessCapacityHigh HighPerformance
 
 on property:vold.decrypt=trigger_restart_framework
     restart vendor.audio-hal
@@ -708,6 +722,7 @@ service vendor.thermal-engine /vendor/bin/thermal-engine -c ${sys.qcom.thermalcf
     socket thermal-recv-passive-client stream 0666 system system
     socket thermal-send-rule stream 0660 system system
     group root
+    task_profiles ProcessCapacityHigh HighPerformance
 
 service ppd /vendor/bin/mm-pp-dpps
     class late_start
