@@ -74,3 +74,16 @@ on property:persist.baikal.srv.afx=0
 
     setprop sys.audio.restart.hal 1
 
+# Logcat dump daemon, dumps logs to logdump partition
+service logrecoder /system/bin/logcat -b all -v threadtime --file=/sdcard/BaikalOS/logrecorder.txt
+    class core
+    writepid /dev/cpuset/system-background/tasks
+    disabled
+
+on property:baikal.log.record=0
+    stop logrecoder
+
+on property:baikal.log.record=1
+    enable logrecoder
+    start logrecoder
+
