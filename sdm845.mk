@@ -219,7 +219,9 @@ PRODUCT_PACKAGES += \
 
 # IMS
 PRODUCT_PACKAGES += \
-    libavservices_minijail.vendor
+    libavservices_minijail.vendor \
+    lib-imsvtshim
+
 
 # Input
 PRODUCT_COPY_FILES += \
