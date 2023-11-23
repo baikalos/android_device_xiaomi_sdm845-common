@@ -83,7 +83,7 @@ bool isDeviceSpecificModeSupported(Mode type, bool* _aidl_return) {
 
 bool setDeviceSpecificMode(Mode type, bool enabled) {
 
-    LOG(INFO) << "Xiaomi/BaikalOS Power setMode Ext: " << toString(type) << " to: " << enabled;
+    //LOG(INFO) << "Xiaomi/BaikalOS Power setMode Ext: " << toString(type) << " to: " << enabled;
 
     switch (type) {
         case Mode::DOUBLE_TAP_TO_WAKE: {
