@@ -77,3 +77,6 @@ telephony.lteOnCdmaDevice=1
 
 # Enable Vulkan for HWUI
 ro.hwui.use_vulkan=true
+
+# Logs 
+persist.log.tag.ACDB-LOADER=S
