@@ -94,8 +94,6 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         <transport>hwbinder</transport>
         <fqname>@1.2::ICryptoFactory/widevine</fqname>
         <fqname>@1.2::IDrmFactory/widevine</fqname>
-        <fqname>@1.3::ICryptoFactory/wfdhdcp</fqname>
-        <fqname>@1.3::IDrmFactory/wfdhdcp</fqname>
     </hal>
     <hal format="hidl">
         <name>android.hardware.gatekeeper</name>
@@ -582,7 +580,7 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
             <instance>vppService</instance>
         </interface>
     </hal>
-    <hal format="hidl" optional="true">
+    <!-- hal format="hidl" optional="true">
         <name>vendor.qti.hardware.wifidisplaysession</name>
         <transport>hwbinder</transport>
         <version>1.0</version>
@@ -602,7 +600,7 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
             <name>IWifiDisplaySessionImageTrack</name>
             <instance>wifidisplaysessionimagetrack</instance>
         </interface>
-    </hal>
+    </hal -->
     <hal format="hidl">
         <name>vendor.qti.ims.callinfo</name>
         <transport>hwbinder</transport>
