@@ -89,3 +89,17 @@ on property:baikal.log.record=1
     enable logrecoder
     start logrecoder
 
+service baikal-post-boot /vendor/bin/sh /vendor/bin/init.baikal.post_boot.sh
+    class core
+    user root
+    group root system wakelock graphics
+    disabled
+    oneshot
+
+on property:sys.boot_completed=1
+    write /proc/sys/vm/page-cluster 0
+    start baikal-post-boot
+
+
+on property:persist.baikal.zramsize=*
+    start baikal-post-boot
