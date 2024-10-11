@@ -4,7 +4,7 @@ on property:baikal.power.thermal=1
     stop vendor.thermal-engine
     start vendor.thermal-engine
     write /sys/class/thermal/thermal_zone34/trip_point_0_temp 115000
-    write /sys/class/thermal/thermal_zone33/trip_point_0_temp 1150000
+    write /sys/class/thermal/thermal_zone33/trip_point_0_temp 115000
     setprop "baikal.eng.therm.cur_profile" "balance"
     write /sys/class/thermal/thermal_message/sconfig 0
 
