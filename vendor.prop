@@ -197,6 +197,9 @@ vendor.audio.dolby.ds2.enabled=true
 vendor.audio.dolby.ds2.hardbypass=true
 persist.baikal.srv.dolby=0
 
+#ZRAM
+persist.baikal.zramsize=2048
+
 #vendor.audio.dolby.ds2.enabled=false
 #vendor.audio.dolby.ds2.hardbypass=false
 
