@@ -68,4 +68,13 @@
     <string name="thermal_dialer">Dialer</string>
     <string name="thermal_gaming">Gaming</string>
     <string name="thermal_streaming">Streaming</string>
+
+    <!-- Monitor Overlay -->
+    <string name="monitor_title">Monitor</string>
+    <string name="monitor_summary">Enable the monitor overlay (FPS, Temp, etc.)</string>
+    <string name="overlay_permission_required">Overlay permission is required</string>
+    <string name="overlay_permission_granted">Overlay permission granted</string>
+    <string name="overlay_permission_denied">Overlay permission denied</string>
+    <string name="monitor_tile_label">Monitor</string>
+    <string name="monitor_tile_description">Toggle the monitor overlay</string>
 </resources>
