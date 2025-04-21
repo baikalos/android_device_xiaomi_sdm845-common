@@ -128,7 +128,7 @@ persist.vendor.dpmhalservice.enable=1
 drm.service.enabled=true
 
 # FRP
-ro.frp.pst=/dev/block/bootdevice/by-name/frp
+# ro.frp.pst=/dev/block/bootdevice/by-name/frp
 
 # Graphics
 ro.hwui.render_ahead=10
@@ -195,10 +195,14 @@ zygote.critical_window.minute=10
 persist.vendor.audio_fx.current=dolby
 vendor.audio.dolby.ds2.enabled=true
 vendor.audio.dolby.ds2.hardbypass=true
-persist.baikal.srv.dolby=0
+
 
 #ZRAM
 persist.baikal.zramsize=2048
+
+persist.baikal.srv.jdsp=0
+persist.baikal.srv.dolby=0
+persist.baikal.srv.afx=1
 
 #vendor.audio.dolby.ds2.enabled=false
 #vendor.audio.dolby.ds2.hardbypass=false
