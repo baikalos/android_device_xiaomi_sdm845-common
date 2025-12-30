@@ -127,6 +127,8 @@ PRODUCT_PACKAGES += \
     android.hardware.camera.provider@2.4-service \
     libdng_sdk.vendor \
     libgui_shim \
+    libjxl \
+    libjxl.vendor \
     libpiex_shim \
     vendor.qti.hardware.camera.device@1.0.vendor
 
