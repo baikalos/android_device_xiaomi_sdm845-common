@@ -5,4 +5,35 @@ allow vendor_init proc_sched:file w_file_perms;
 allow vendor_init proc_watermark_scale_factor:file w_file_perms;
 allow vendor_init self:capability kill;
 
+allow vendor_init persist_debug_prop:file { read open getattr map };
+
+allow vendor_init charger_prop:property_service set;
+allow vendor_init default_prop:property_service set;
+allow vendor_init fm_prop:property_service set;
+
+#allow radio vendor_default_prop:file { read open getattr };
+#allow vendor_dataservice_app vendor_default_prop:file { read open getattr };
+
+allow vendor_init device:file { create write setattr open };
+
 set_prop(vendor_init, vendor_fp_prop)
+#get_prop(vendor_init, init_service_status_private_prop)
+
+# Allow vendor_init to set aconfig writable properties
+set_prop(vendor_init, device_config_aconfig_flags_prop)
+
+# Also, to be safe, allow it for the general aconfigd property
+# set_prop(vendor_init, aconfigd_prop)
+
+# device/xiaomi/sdm845-common/sepolicy/vendor/vendor_init.te
+
+# Allow vendor_init to create and label aconfig directories
+allow vendor_init aconfig_storage_metadata_file:dir { create getattr setattr search relabelfrom relabelto write add_name remove_name rmdir };
+allow vendor_init aconfig_storage_flags_metadata_file:dir { create getattr setattr search relabelfrom relabelto write add_name remove_name rmdir };
+
+# Essential for the mount and transition
+allow vendor_init metadata_file:dir { create getattr setattr search relabelfrom relabelto write add_name };
+allow vendor_init cache_file:dir { create getattr setattr search relabelfrom relabelto write add_name };
+
+allow vendor_init cache_file:file { create rw_file_perms setattr unlink };
+allow vendor_init cache_file:lnk_file read;

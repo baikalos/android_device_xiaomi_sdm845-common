@@ -1,3 +1,5 @@
+persist.device_config.aconfig_flags.enabled=true
+
 # Audio
 audio.deep_buffer.media=true
 audio.offload.min.duration.secs=30

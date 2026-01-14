@@ -61,7 +61,33 @@ on init
 on fs
     wait /dev/block/platform/soc/1d84000.ufshc
     symlink /dev/block/platform/soc/1d84000.ufshc /dev/block/bootdevice
+
+    # Pre-create mount points
+    mkdir /metadata 0775 system system
+    mkdir /cache 0775 system cache
+
     mount_all /vendor/etc/fstab.qcom
+
+    # Swap to /metadata (No context= here to avoid filesystem-level error)
+    umount /cache
+    mount ext4 /dev/block/bootdevice/by-name/cache /metadata noatime nosuid nodev discard wait
+    chmod 0775 /metadata
+    chown system system /metadata
+
+    # Create subfolders
+    mkdir /metadata/aconfig 0775 system system
+    mkdir /metadata/aconfig/flags 0775 system system
+    mkdir /metadata/aconfig/maps 0775 system system
+    mkdir /metadata/aconfig/boot 0775 system system
+
+    # Fix labels using the predefined file_contexts
+    restorecon_recursive /metadata
+
+    # Bind mount for /cache and fix its labels too
+    mkdir /metadata/cache_internal 0775 system cache
+    mount bind /metadata/cache_internal /cache
+    restorecon_recursive /cache
+
     mkdir /mnt/vendor/persist 0771 root system
     chown root system /mnt/vendor/persist
     chmod 0771 /mnt/vendor/persist
@@ -186,6 +212,10 @@ on boot
     chmod 0660 /dev/block/bootdevice/by-name/ramdump
     chown root system /sys/kernel/dload/dload_mode
     chmod 0660 /sys/kernel/dload/dload_mode
+
+
+    chown system system /sys/kernel/fast_charge/force_fast_charge
+    chmod 0664 /sys/kernel/fast_charge/force_fast_charge
 
     chown system system /sys/class/backlight/panel0-backlight/brightness
     chown system system /sys/class/backlight/panel0-backlight/max_brightness
@@ -701,6 +731,6 @@ on property:init.svc.vendor.hwcomposer-2-3=running
 on property:init.svc.vendor.hwcomposer-2-3=restarting
     stop ppd
 
-on property:init.svc.statsd=running
+#on property:init.svc.statsd=running
     # Stop trying to kill my device after 3 days ugh
-    stop statsd
+#    stop statsd

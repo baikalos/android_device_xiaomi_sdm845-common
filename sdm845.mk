@@ -4,6 +4,8 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 
+PRODUCT_RELEASE_CONFIG_OVERRIDES += RELEASE_ACONFIGD_ENABLED=true
+
 # Inherit from those products. Most specific first.
 $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
@@ -17,15 +19,24 @@ $(call inherit-product, hardware/qcom-caf/common/common.mk)
 PRODUCT_OTA_ENFORCE_VINTF_KERNEL_REQUIREMENTS := true
 
 # Enable whole-program R8 Java optimizations for system_server.
-FULL_SYSTEM_OPTIMIZE_JAVA := true
+FULL_SYSTEM_OPTIMIZE_JAVA := false
 
 # DebugFS
-PRODUCT_SET_DEBUGFS_RESTRICTIONS := true
+PRODUCT_SET_DEBUGFS_RESTRICTIONS := false
+
+RELEASE_ACONFIG_STORAGE_REWRITABLE := true
+
+# Set properties to trick aconfigd into thinking it's writable
+PRODUCT_PROPERTY_OVERRIDES += \
+    aconfigd.is_writable=true \
+    persist.device_config.aconfig_flags.writable=true
+
 
 # Dex/ART optimization
-PRODUCT_ART_TARGET_INCLUDE_DEBUG_BUILD := false
-PRODUCT_DEX_PREOPT_DEFAULT_COMPILER_FILTER := everything
-USE_DEX2OAT_DEBUG := false
+PRODUCT_ART_TARGET_INCLUDE_DEBUG_BUILD := true
+PRODUCT_DEX_PREOPT_DEFAULT_COMPILER_FILTER := verify
+WITH_DEXPREOPT_BOOT_IMG_AND_SYSTEM_SERVER_ONLY := false
+USE_DEX2OAT_DEBUG := true
 
 # Overlays
 DEVICE_PACKAGE_OVERLAYS += \
@@ -143,8 +154,12 @@ PRODUCT_SET_DEBUGFS_RESTRICTIONS := true
 
 # Device-specific settings
 PRODUCT_PACKAGES += \
-    XiaomiDolby \
+    DolbyAtmos \
     XiaomiParts
+
+# Device-specific settings
+#PRODUCT_PACKAGES += \
+#    su
 
 # Display
 PRODUCT_PACKAGES += \
@@ -196,6 +211,17 @@ PRODUCT_PACKAGES += \
 # Lineage Health
 PRODUCT_PACKAGES += \
     vendor.lineage.health-service.default
+
+$(call soong_config_set_bool,lineage_health,charging_control_charging_toggle,false)
+$(call soong_config_set,lineage_health,charging_control_charging_disabled,1)
+$(call soong_config_set,lineage_health,charging_control_charging_enabled,0)
+$(call soong_config_set,lineage_health,charging_control_charging_path,/sys/class/power_supply/battery/input_suspend)
+$(call soong_config_set_bool,lineage_health,charging_control_supports_bypass,false)
+
+$(call soong_config_set,lineage_health,fast_charge_node,/sys/kernel/fast_charge/force_fast_charge)
+$(call soong_config_set,lineage_health,fast_charge_value_none,0)
+$(call soong_config_set,lineage_health,fast_charge_value_fast_charge,1)
+
 
 # LiveDisplay
 PRODUCT_PACKAGES += \

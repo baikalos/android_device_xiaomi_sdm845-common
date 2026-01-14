@@ -4,7 +4,14 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 
+RELEASE_ACONFIG_VALUE_SET := trunk_staging
+
 COMMON_PATH := device/xiaomi/sdm845-common
+
+TARGET_ENABLE_ADB := true
+BOARD_DEBUGGABLE := true
+BOARD_ALLOW_ADBD_ROOT := true
+WITH_ADB_INSECURE := true
 
 # Architecture
 TARGET_ARCH := arm64
@@ -26,9 +33,10 @@ TARGET_BOOTLOADER_BOARD_NAME := sdm845
 TARGET_NO_BOOTLOADER := true
 
 # Camera
-MALLOC_SVELTE := true
-MALLOC_SVELTE_FOR_LIBC32 := true
-$(call soong_config_set,camera,override_format_from_reserved,true)
+# MALLOC_SVELTE := true
+# MALLOC_SVELTE_FOR_LIBC32 := true
+
+$(call soong_config_set_bool,camera,override_format_from_reserved,true)
 $(call soong_config_set,camera,package_name,com.xiaomi.sessionparams.clientName)
 
 # Disable Postrender Cleanup
@@ -37,9 +45,13 @@ TARGET_DISABLE_POSTRENDER_CLEANUP := true
 # Kernel
 BOARD_BOOT_HEADER_VERSION := 1
 BOARD_KERNEL_BASE := 0x00000000
-BOARD_KERNEL_CMDLINE := androidboot.hardware=qcom androidboot.console=ttyMSM0 msm_rtb.filter=0x237 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 service_locator.enable=1 swiotlb=2048 androidboot.configfs=true loop.max_part=7 androidboot.usbcontroller=a600000.dwc3
+BOARD_KERNEL_CMDLINE := androidboot.hardware=qcom androidboot.console=ttyMSM0 msm_rtb.filter=0x237 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 service_locator.enable=1 swiotlb=2048 androidboot.configfs=true androidboot.usbcontroller=a600000.dwc3
 BOARD_KERNEL_CMDLINE += androidboot.boot_devices=soc/1d84000.ufshc
-BOARD_KERNEL_CMDLINE += cgroup_disable=pressure
+BOARD_KERNEL_CMDLINE += androidboot.init_fatal_reboot_target=recovery
+BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
+BOARD_KERNEL_CMDLINE += panic_on_oops=1 androidboot.panic_reboot_mode=recovery
+BOARD_KERNEL_CMDLINE += panic=5
+#BOARD_KERNEL_CMDLINE += cgroup_disable=pressure
 BOARD_KERNEL_IMAGE_NAME := Image.gz-dtb
 BOARD_KERNEL_PAGESIZE := 4096
 BOARD_MKBOOTIMG_ARGS += --header_version $(BOARD_BOOT_HEADER_VERSION)
@@ -63,8 +75,8 @@ MAX_EGL_CACHE_SIZE := 2048*1024
 DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE := \
     hardware/qcom-caf/common/vendor_framework_compatibility_matrix.xml \
     hardware/qcom-caf/common/vendor_framework_compatibility_matrix_legacy.xml \
-    hardware/xiaomi/vintf/xiaomi_framework_compatibility_matrix.xml \
-    vendor/lineage/config/device_framework_matrix.xml
+    hardware/xiaomi/vintf/xiaomi_framework_compatibility_matrix.xml
+
 DEVICE_MANIFEST_FILE := $(COMMON_PATH)/manifest.xml
 DEVICE_MATRIX_FILE := hardware/qcom-caf/common/compatibility_matrix.xml
 
@@ -80,16 +92,18 @@ TARGET_USES_ION := true
 # Partitions
 AB_OTA_UPDATER := false
 
+
 BOARD_BOOTIMAGE_PARTITION_SIZE := 67092480
 BOARD_CACHEIMAGE_PARTITION_SIZE := 268435456
 BOARD_USERDATAIMAGE_PARTITION_SIZE := 57453555712
-
 BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := ext4
 BOARD_ODMIMAGE_FILE_SYSTEM_TYPE := ext4
 BOARD_PRODUCTIMAGE_FILE_SYSTEM_TYPE := ext4
 BOARD_SYSTEMIMAGE_FILE_SYSTEM_TYPE := ext4
 BOARD_SYSTEM_EXTIMAGE_FILE_SYSTEM_TYPE := ext4
 BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := ext4
+BOARD_USERDATAIMAGE_FILE_SYSTEM_TYPE := f2fs
+BOARD_USES_METADATA_PARTITION := true
 
 BOARD_FLASH_BLOCK_SIZE := 262144 # (BOARD_KERNEL_PAGESIZE * 64)
 
@@ -103,6 +117,36 @@ BOARD_SUPER_PARTITION_VENDOR_DEVICE_SIZE := 1073741824
 BOARD_SUPER_PARTITION_GROUPS := qti_dynamic_partitions
 BOARD_QTI_DYNAMIC_PARTITIONS_PARTITION_LIST := odm product system system_ext vendor
 BOARD_QTI_DYNAMIC_PARTITIONS_SIZE := 5163188224 # (BOARD_SUPER_PARTITION_SIZE - 4194304) 4MiB overhead
+
+BOARD_HAS_EXT4_RESERVED_BLOCKS := true
+
+
+# Product: Keeping +800MB as requested
+# 838860800 bytes
+BOARD_PRODUCTIMAGE_PARTITION_RESERVED_SIZE := 838860800
+
+# System: Reduced to +350MB
+# 367001600 bytes
+BOARD_SYSTEMIMAGE_PARTITION_RESERVED_SIZE := 367001600
+
+# System_ext: Reduced to +150MB
+# 157286400 bytes
+BOARD_SYSTEM_EXTIMAGE_PARTITION_RESERVED_SIZE := 157286400
+
+# Vendor: Reduced to +150MB
+# 157286400 bytes
+BOARD_VENDORIMAGE_PARTITION_RESERVED_SIZE := 157286400
+
+# ODM: Reduced to +30MB (usually contains very few files)
+# 31457280 bytes
+BOARD_ODMIMAGE_PARTITION_RESERVED_SIZE := 31457280
+
+# Enable dynamic inode calculation for all partitions
+BOARD_SYSTEMIMAGE_EXTFS_INODE_COUNT := -1
+BOARD_SYSTEM_EXTIMAGE_EXTFS_INODE_COUNT := -1
+BOARD_PRODUCTIMAGE_EXTFS_INODE_COUNT := -1
+BOARD_VENDORIMAGE_EXTFS_INODE_COUNT := -1
+BOARD_ODMIMAGE_EXTFS_INODE_COUNT := -1
 
 TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
@@ -138,6 +182,7 @@ ENABLE_VENDOR_RIL_SERVICE := true
 VENDOR_SECURITY_PATCH := $(PLATFORM_SECURITY_PATCH) #2020-12-01
 
 # SELinux
+
 include device/lineage/sepolicy/libperfmgr/sepolicy.mk
 include device/qcom/sepolicy_vndr/SEPolicy.mk
 

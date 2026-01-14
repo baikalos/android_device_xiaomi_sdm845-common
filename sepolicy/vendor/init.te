@@ -5,3 +5,30 @@ allow init proc:file { write };
 allow init sysfs_battery_supply:file rw_file_perms;
 
 dontaudit init { bt_firmware_file firmware_file }:filesystem getattr;
+
+
+# Thank you very much Google for all the fucking headache bringing it up on old devices! FUCK YOU guys, really, you are fucking bastards.
+allow metadata_file self:filesystem associate;
+
+# Allow init to relabel and mount
+allow init cache_file:filesystem { relabelfrom mount associate };
+allow init metadata_file:filesystem { relabelto mount associate };
+
+# Allow init to manage the block device
+allow init cache_block_device:blk_file { relabelto setattr };
+allow init metadata_block_device:blk_file { relabelto setattr };
+
+# Essential for the mount options
+allow init self:capability sys_admin;
+
+
+# Allow init to change labels from cache_file to metadata_file
+allow init cache_file:dir { relabelfrom };
+allow init cache_file:file { relabelfrom };
+
+allow init metadata_file:dir { relabelto };
+allow init metadata_file:file { relabelto };
+
+# Also for aconfig-specific types
+allow init aconfig_storage_metadata_file:dir { relabelto };
+allow init aconfig_storage_metadata_file:file { relabelto };

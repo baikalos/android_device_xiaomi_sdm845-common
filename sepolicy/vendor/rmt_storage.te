@@ -1,0 +1,1 @@
+allow rmt_storage rmt_storage:capability { dac_override };
