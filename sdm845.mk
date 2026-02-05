@@ -4,6 +4,8 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 
+PRODUCT_RELEASE_CONFIG_OVERRIDES += RELEASE_ACONFIGD_ENABLED=true
+
 # Inherit from those products. Most specific first.
 $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
@@ -15,6 +17,26 @@ $(call inherit-product, frameworks/native/build/phone-xhdpi-6144-dalvik-heap.mk)
 $(call inherit-product, hardware/qcom-caf/common/common.mk)
 
 PRODUCT_OTA_ENFORCE_VINTF_KERNEL_REQUIREMENTS := true
+
+# Enable whole-program R8 Java optimizations for system_server.
+FULL_SYSTEM_OPTIMIZE_JAVA := false
+
+# DebugFS
+PRODUCT_SET_DEBUGFS_RESTRICTIONS := false
+
+RELEASE_ACONFIG_STORAGE_REWRITABLE := true
+
+# Set properties to trick aconfigd into thinking it's writable
+PRODUCT_PROPERTY_OVERRIDES += \
+    aconfigd.is_writable=true \
+    persist.device_config.aconfig_flags.writable=true
+
+
+# Dex/ART optimization
+PRODUCT_ART_TARGET_INCLUDE_DEBUG_BUILD := true
+PRODUCT_DEX_PREOPT_DEFAULT_COMPILER_FILTER := verify
+WITH_DEXPREOPT_BOOT_IMG_AND_SYSTEM_SERVER_ONLY := false
+USE_DEX2OAT_DEBUG := true
 
 # Overlays
 DEVICE_PACKAGE_OVERLAYS += \
@@ -121,6 +143,8 @@ PRODUCT_PACKAGES += \
     android.hardware.boot-service.qti \
     android.hardware.boot-service.qti.recovery
 
+$(call soong_config_set, ufsbsg, ufsframework, bsg)
+
 # Camera
 PRODUCT_PACKAGES += \
     android.hardware.camera.provider@2.4-impl:32 \
@@ -163,7 +187,7 @@ PRODUCT_SET_DEBUGFS_RESTRICTIONS := true
 
 # Device-specific settings
 PRODUCT_PACKAGES += \
-    XiaomiDolby \
+    DolbyAtmos \
     XiaomiParts
 
 # Display
@@ -238,7 +262,7 @@ PRODUCT_PACKAGES += \
 
 # Keymaster
 PRODUCT_PACKAGES += \
-    android.hardware.keymaster@4.0.vendor
+    android.hardware.keymaster@3.0.vendor
 
 # Lights
 PRODUCT_PACKAGES += \
@@ -248,6 +272,16 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     vendor.lineage.health-service.default
 
+$(call soong_config_set_bool,lineage_health,charging_control_charging_toggle,false)
+$(call soong_config_set,lineage_health,charging_control_charging_disabled,1)
+$(call soong_config_set,lineage_health,charging_control_charging_enabled,0)
+$(call soong_config_set,lineage_health,charging_control_charging_path,/sys/class/power_supply/battery/input_suspend)
+$(call soong_config_set_bool,lineage_health,charging_control_supports_bypass,false)
+
+# Not supported on 4.19 kernel
+#$(call soong_config_set,lineage_health,fast_charge_node,/sys/kernel/fast_charge/force_fast_charge)
+#$(call soong_config_set,lineage_health,fast_charge_value_none,0)
+#$(call soong_config_set,lineage_health,fast_charge_value_fast_charge,1)
 # Media
 PRODUCT_PACKAGES += \
     libavservices_minijail \
@@ -289,6 +323,10 @@ PRODUCT_PACKAGES += \
     vendor_bt_firmware_mountpoint \
     vendor_dsp_mountpoint \
     vendor_firmware_mnt_mountpoint
+
+PRODUCT_USE_DYNAMIC_PARTITIONS := true
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/partitions/flash_super_dummy.sh:install/bin/flash_super_dummy.sh
 
 # Power
 PRODUCT_PACKAGES += \
@@ -380,9 +418,9 @@ PRODUCT_PACKAGES += \
     vendor.qti.hardware.vibrator.service
 
 # Preopt SystemUI
-PRODUCT_DEXPREOPT_SPEED_APPS += \
-    Settings \
-    SystemUI
+#PRODUCT_DEXPREOPT_SPEED_APPS += \
+#    Settings \
+#    SystemUI
 
 # VNDK
 PRODUCT_COPY_FILES += \

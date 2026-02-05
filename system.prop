@@ -1,3 +1,7 @@
+persist.device_config.aconfig_flags.enabled=true
+aconfigd.is_writable=true
+persist.device_config.aconfig_flags.writable=true
+
 # Audio
 audio.deep_buffer.media=true
 audio.offload.min.duration.secs=30
@@ -30,6 +34,9 @@ dalvik.vm.dex2oat64.enabled=true
 # fastbootd
 ro.fastbootd.available=true
 
+# FS-verity
+ro.apk_verity.mode=2
+
 # Graphics
 debug.sf.auto_latch_unsignaled=0
 debug.sf.early_app_phase_offset_ns=500000
@@ -42,8 +49,10 @@ ro.surface_flinger.enable_frame_rate_override=false
 ro.surface_flinger.enable_layer_caching=false
 ro.surface_flinger.force_hwc_copy_for_virtual_displays=true
 ro.surface_flinger.max_virtual_display_dimension=4096
+ro.surface_flinger.supports_background_blur=1
 sdm.debug.disable_inline_rotator=1
 sdm.debug.disable_inline_rotator_secure=1
+ro.config.avoid_gfx_accel=true
 
 # IMS
 persist.vendor.ims.disableUserAgent=0

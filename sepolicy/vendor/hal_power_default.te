@@ -18,3 +18,17 @@ allow hal_power_default vendor_sysfs_kgsl:{ file lnk_file } rw_file_perms;
 # cpufreq-hw
 allow hal_power_default proc:file { write open };
 allow hal_power_default sysfs:file { write open };
+
+allow hal_power_default fwk_stats_service:service_manager find;
+
+binder_call(hal_power_default, system_server)
+
+# Allow Power HAL to find the thermal service in service_manager
+# allow hal_power_default hal_thermal_service:service_manager find;
+
+# If thermal-engine registers itself as a vendor service (common in sm6150)
+# allow hal_power_default vendor_hal_thermal_service:service_manager find;
+
+# Allow Power HAL to communicate with thermal-engine if it provides a binder interface
+binder_call(hal_power_default, vendor_thermal-engine)
+

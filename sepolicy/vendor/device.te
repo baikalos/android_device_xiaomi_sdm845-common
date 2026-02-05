@@ -1,3 +1,5 @@
+typeattribute system_block_device super_block_device_type;
+
 type fingerprint_device, dev_type;
 
 type gps_device, dev_type;
@@ -5,3 +7,16 @@ type gps_device, dev_type;
 type sound_device, dev_type;
 
 type vbmeta_block_device, dev_type;
+
+# type ssd_device, dev_type;
+# type frp_block_device, dev_type;
+# type vendor_rpmb_device, dev_type;
+# type vendor_sg_device, dev_type;
+# type vendor_dip_device, dev_type;
+# type vendor_mdtp_device, dev_type;
+# type vendor_sd_device, dev_type;
+
+type vendor_hibernate_file, file_type, core_data_file_type;
+
+type vendor_hibernate_swap, dev_type;
+

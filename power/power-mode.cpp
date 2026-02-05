@@ -81,6 +81,9 @@ bool isDeviceSpecificModeSupported(Mode type, bool* _aidl_return) {
 bool setDeviceSpecificMode(Mode type, bool enabled) {
     switch (type) {
         case Mode::DOUBLE_TAP_TO_WAKE: {
+
+            LOG(WARNING) << "DT2W mode requested:" << enabled;
+
             int fd = open_ts_input();
             if (fd == -1) {
                 LOG(WARNING)

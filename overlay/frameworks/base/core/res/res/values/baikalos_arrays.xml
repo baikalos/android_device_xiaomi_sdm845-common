@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <integer-array name="config_powermode_keys">
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>
+    </integer-array>
+
+    <integer-array name="config_powermode_values">
+        <item>2</item>
+        <item>5</item>
+        <item>5</item>
+    </integer-array>
+</resources>

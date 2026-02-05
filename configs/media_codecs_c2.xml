@@ -64,7 +64,7 @@
 
 <Included>
     <Settings>
-        <Setting name="max-video-encoder-input-buffers" value="11" />
+        <Setting name="max-video-encoder-input-buffers" value="16" />
     </Settings>
     <Decoders>
         <MediaCodec name="c2.qti.avc.decoder" type="video/avc">
@@ -120,33 +120,30 @@
         </MediaCodec>
         <MediaCodec name="c2.qti.hevc.decoder" type="video/hevc" >
             <Alias name="OMX.qcom.video.decoder.hevc" />
-            <Limit name="size" min="96x96" max="4096x2304" />
+            <Limit name="size" min="96x96" max="3840x2160" />
             <Limit name="alignment" value="2x2" />
             <Limit name="block-size" value="16x16" />
-            <Limit name="blocks-per-second" range="24-2073600" />
-            <Limit name="bitrate" range="1-120000000" />
-            <Limit name="frame-rate" range="1-480" />
+            <Limit name="blocks-per-second" range="24-244800" />
+            <Limit name="bitrate" range="1-100000000" />
+            <Limit name="frame-rate" range="1-120" />
             <Limit name="concurrent-instances" max="16" />
-            <Limit name="performance-point-4096x2304" value="30" />
-            <Limit name="performance-point-4096x2160" value="60" />
-            <Limit name="performance-point-3840x2160" value="60" />
-            <Limit name="performance-point-1920x1088" value="240" />
-            <Limit name="performance-point-1280x720" value="480" />
+            <Limit name="performance-point-3840x2160" value="30" />
+            <Limit name="performance-point-1920x1088" value="120" />
+            <Limit name="performance-point-1280x720" value="240" />
             <Feature name="adaptive-playback" />
             <Feature name="can-swap-width-height" value="1" />
+            <Feature name="low-latency" />
         </MediaCodec>
         <MediaCodec name="c2.qti.hevc.decoder.secure" type="video/hevc" >
             <Alias name="OMX.qcom.video.decoder.hevc.secure" />
-            <Limit name="size" min="96x96" max="4096x2304" />
+            <Limit name="size" min="96x96" max="1920x1080" />
             <Limit name="alignment" value="2x2" />
             <Limit name="block-size" value="16x16" />
-            <Limit name="blocks-per-second" range="24-2073600" />
+            <Limit name="blocks-per-second" range="24-244800" />
             <Limit name="bitrate" range="1-40000000" />
             <Limit name="frame-rate" range="1-60" />
             <Limit name="concurrent-instances" max="3" />
-            <Limit name="performance-point-4096x2304" value="30" />
-            <Limit name="performance-point-4096x2160" value="60" />
-            <Limit name="performance-point-3840x2160" value="60" />
+            <Limit name="performance-point-1920x1080" value="60" />
             <Feature name="adaptive-playback" />
             <Feature name="secure-playback" required="true" />
             <Feature name="can-swap-width-height" value="1" />
@@ -212,7 +209,7 @@
             <Limit name="blocks-per-second" range="24-2073600" />
             <Limit name="bitrate" range="1-120000000" />
             <Limit name="frame-rate" range="1-480" />
-            <Limit name="concurrent-instances" max="16" />
+            <Limit name="concurrent-instances" max="8" /> <Limit name="color-format" value="21,19,2141391876" /> <Feature name="can-swap-width-height" value="1" /> 
             <Limit name="performance-point-4096x2304" value="30" />
             <Limit name="performance-point-4096x2160" value="60" />
             <Limit name="performance-point-3840x2160" value="60" />
@@ -228,7 +225,8 @@
             <Limit name="blocks-per-second" range="24-2073600" />
             <Limit name="bitrate" range="1-120000000" />
             <Limit name="frame-rate" range="1-480" />
-            <Limit name="concurrent-instances" max="16" />
+            <Limit name="concurrent-instances" max="8" /> <Limit name="quality" range="0-100" default="80" />
+            <Limit name="color-format" value="21,19,2141391876" />
             <Limit name="quality" range="0-100" default="80" />
             <Limit name="performance-point-4096x2304" value="30" />
             <Limit name="performance-point-4096x2160" value="60" />

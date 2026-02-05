@@ -1,2 +1,11 @@
 allow hal_health_default sysfs_wireless_supply:dir search;
 allow hal_health_default sysfs_wireless_supply:file r_file_perms;
+
+allow hal_health_default vendor_sysfs_battery_supply:dir search;
+allow hal_health_default vendor_sysfs_battery_supply:file r_file_perms;
+
+allow hal_health_default vendor_sysfs_usb_supply:dir search;
+allow hal_health_default vendor_sysfs_usb_supply:file r_file_perms;
+
+allow hal_health_default vendor_sysfs_usbpd_device:dir search;
+allow hal_health_default vendor_sysfs_usbpd_device:file r_file_perms;
